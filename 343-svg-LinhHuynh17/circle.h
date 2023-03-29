@@ -1,7 +1,7 @@
 /**
  * SVG Circle
  **/
-
+//comment
 #ifndef CIRCLE_H
 #define CIRCLE_H
 
