@@ -6,6 +6,7 @@ using namespace std;
 
 // operator<< equivalent to write the object out
 ostream &Circle::write(ostream &out) const {
+  //        <circle cx="100" cy="100" r="50" fill="red"  />
   out << "      <circle ";
   out << "cx=\"" << cx << "\" ";
   out << "cy=\"" << cy << "\" ";

@@ -1,4 +1,5 @@
 #include "circle.h"
+#include "rectangle.h"
 #include "svg.h"
 #include <fstream>
 #include <iostream>
@@ -17,18 +18,23 @@ vector<SVG *> readSVGFile(const string &inFile) {
   SVG *obj = nullptr;
   while (fin >> sType) {
     cout << "Reading: " << sType << endl;
+
     if (sType == "circle") {
       obj = new Circle();
+    } else if(sType == "rectangle"){
+      obj = new Rectangle();
     } else {
       cout << "Unrecognized type: " << sType << endl;
       string junk;
-      getline(fin, junk);
+      getline(fin, junk); //read remaining tokens
       obj = nullptr;
     }
+
     if (obj != nullptr) {
       fin >> *obj;
       svgs.push_back(obj);
     }
+    
   }
   fin.close();
   return svgs;

@@ -13,9 +13,11 @@ using namespace std;
 
 class SVG {
   friend ostream &operator<<(ostream &out, const SVG &svg) {
-    return svg.write(out);
+    return svg.write(out); //write data from object svg to out stream
   }
-  friend istream &operator>>(istream &ins, SVG &svg) { return svg.read(ins); }
+  friend istream &operator>>(istream &ins, SVG &svg) { 
+    return svg.read(ins); //read data for svg object from ins stream
+  }
 
 public:
   // operator<< equivalent to write the object out

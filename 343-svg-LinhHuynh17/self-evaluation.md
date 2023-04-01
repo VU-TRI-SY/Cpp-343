@@ -12,21 +12,21 @@ Q: Does the program compile and run to completion: Yes/No
 - If the program does not compile or gives a segmentation error when compiled, 
 the maximum possible grade is 50%. No need to continue with the rest of self-evaluation
 
-Q: -1 for each compilation warning, min -3: ENTER_NUMBER
+Q: -1 for each compilation warning, min -3: 1
 
 - Check under *1. Compiles without warnings*
 - If the warning message is addressed in README.md, including how the programmer tried to address it, no deductions
 
-Q: -1 for each clang-tidy warning, min -3: ENTER_NUMBER
+Q: -1 for each clang-tidy warning, min -3: 1
 
 - Check under *3. clang-tidy warnings*
 - If the warning message is addressed in README.md, including how the programmer tried to address it, no deductions
 
-Q: -1 for each clang-format warning, min -3: ENTER_NUMBER
+Q: -1 for each clang-format warning, min -3: 1
 
 - Check under *4. clang-format does not find any formatting issues*
 
-Q: Runs and produces correct output: ENTER_NUMBER
+Q: Runs and produces correct output: 1
 
 - N/A for this assignment, enter 0 if proper SVG file is produced
 
