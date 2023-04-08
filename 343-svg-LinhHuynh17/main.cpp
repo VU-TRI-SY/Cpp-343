@@ -21,13 +21,15 @@ vector<SVG *> readSVGFile(const string &inFile) {
 
     if (sType == "circle") {
       obj = new Circle();
-    } else if(sType == "rectangle"){
-      obj = new Rectangle();
-    } else {
-      cout << "Unrecognized type: " << sType << endl;
-      string junk;
-      getline(fin, junk); //read remaining tokens
-      obj = nullptr;
+    } else{
+      if(sType == "rectangle"){
+        obj = new Rectangle();
+      } else {
+        cout << "Unrecognized type: " << sType << endl;
+        string junk;
+        getline(fin, junk); //read remaining tokens
+        obj = nullptr;
+      }
     }
 
     if (obj != nullptr) {

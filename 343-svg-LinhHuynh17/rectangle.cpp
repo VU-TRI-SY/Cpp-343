@@ -16,7 +16,7 @@ ostream &Rectangle::write(ostream &out) const {
 }
 
 // operator>> equivalent to read the object contents
-istream &Rectangle::read(istream &in) {
-  in >> x >> y >> width >> height >> color;
-  return in;
+istream &Rectangle::read(istream &inf) {
+  inf >> x >> y >> width >> height >> color;
+  return inf;
 }
