@@ -133,17 +133,17 @@ private:
   Node *root{nullptr};
 
   // print tree sideways with root on left
-  static ostream &printSideways(ostream &out, const Node *curr, int level = 0);
+  // static ostream &printSideways(ostream &out, const Node *curr, int level = 0);
 
-  // helper for printVertical
+  // // helper for printVertical
   static ostream &centeredPrint(ostream &out, int space, const string &str,
                                 char fillChar = ' ');
 
-  // print tree with the root at top
+  // // print tree with the root at top
   static ostream &printTreeLevel(ostream &out, queue<const Node *> &q,
                                  int width, int depth, int maxDepth);
 
-  // helper function for displaying tree sideways, works recursively
+  // // helper function for displaying tree sideways, works recursively
   static ostream &printVertical(ostream &out, Node *curr);
 
   // height of a Node, nullptr is 0, root is 1, static, no access to 'this'
@@ -151,40 +151,161 @@ private:
   static int getHeight(const Node *n);
 
   // helper function to compare 2 Strings by prefix
-  int compareNode(Node* n1, Node* n2)
+  int compareNode(Node *n1, Node *n2)
   {
     string s1 = n1->data.first;
     string s2 = n2->data.first;
     int compare_val = s1.compare(s2);
 
-    if(compare_val < 0) return -1;
-    if(compare_val == 0) return 0;
-    else return 1;
+    if (compare_val < 0)
+      return -1;
+    if (compare_val == 0)
+      return 0;
+    else
+      return 1;
   }
 
-  Node* copyTree(Node* tree2) {
-    if (tree2 == nullptr) {
+  Node *copyTree(Node *tree2)
+  {
+    if (tree2 == nullptr)
+    {
       return nullptr;
     }
-    Node* newNode = new Node(tree2->data);
+    Node *newNode = new Node(tree2->data);
     newNode->left = copyTree(tree2->left);
     newNode->right = copyTree(tree2->right);
     return newNode;
   }
 
-  void destroyTree(Node* node) {
-    if (node != nullptr) {
-        destroyTree(node->left);
-        destroyTree(node->right);
-        delete node;
+  void destroyTree(Node *node)
+  {
+    if (node != nullptr)
+    {
+      destroyTree(node->left);
+      destroyTree(node->right);
+      delete node;
     }
   }
 
-  int countAllNodes(Node* root) const{
-    if(root == nullptr)
+  int countAllNodes(Node *root) const
+  {
+    if (root == nullptr)
       return 0;
-    
+
     return 1 + countAllNodes(root->left) + countAllNodes(root->right);
+  }
+
+  void inorder_helper(Node *node, void visit(const value_type &item)) const
+  {
+    
+    
+    if (node != nullptr)
+    {
+      inorder_helper(node->left, visit);
+      visit(node->data);
+      // cout << node->data.first << " " << node->data.second << endl;
+      inorder_helper(node->right, visit);
+    }
+  }
+
+  void preorder_helper(Node *node, void visit(const value_type &item)) const
+  {
+    if (node != nullptr)
+    {
+      visit(node->data);
+      inorder_helper(node->left, visit);
+      inorder_helper(node->right, visit);
+    }
+  }
+
+  void postorder_helper(Node *node, void visit(const value_type &item)) const
+  {
+    if (node != nullptr)
+    {
+      inorder_helper(node->left, visit);
+      inorder_helper(node->right, visit);
+      visit(node->data);
+    }
+  }
+
+  void saveInorder(Node* root, vector<value_type>& vt){
+    if(root == nullptr)
+      return;
+
+    saveInorder(root->left, vt);
+    vt.push_back(root->data);
+    saveInorder(root->left, vt);
+  }
+
+  bool compareTwoTrees(Node* root1, Node* root2) const{
+    if(root1 == nullptr && root2 == nullptr){
+      return true;
+    }
+
+    if(root1 == nullptr || root2 == nullptr){
+      return false;
+    }
+
+    // if(root1 != nullptr && root2 == nullptr){
+    //   return false;
+    // }
+
+    //2 trees are not empty
+    if(root1->data.first != root2->data.first || root1->data.second != root2->data.second){
+      return false;
+    }
+
+    // return compareTwoTrees(root1->left, root2->left) && compareTwoTrees(root1->right, root2->right);
+    if(compareTwoTrees(root1->left, root2->left) == true){
+      return compareTwoTrees(root1->right, root2->right);
+    }else{
+      return false;
+    }
+  }
+
+  bool isPrefix(const key_type& k1, const key_type& k2) const{//check k2 is substring (prefix) of k1 or not
+    int i = 0;
+    int j = 0;
+    size_t len1 = k1.size();
+    size_t len2 = k2.size();
+
+    while(i < len1 && j < len2){
+      if(k1[i] != k2[j])
+        return false;
+      
+      i++;
+      j++;
+    }
+
+    //"Helloaaaa"
+    //"Hello"
+    if(i == len1 && j == len2)
+      return true;
+
+    if(j == len2 && i < len1)
+      return true;
+
+    //i = len1 and j < len2
+    return false;
+  } 
+
+  void addAll_helper(Node* root, vector<value_type>& vt, const key_type &k) const{
+    if(root == nullptr) return;
+
+    //k = "Seat"
+    //root->data = <"Seaton, South Australia, Australia", 9704>
+    if(isPrefix(root->data.first, k)){ //check k is prefix of root->data.first
+      vt.push_back(root->data);
+      addAll_helper(root->left, vt, k);
+      addAll_helper(root->right, vt, k);
+    }else{
+      int compare_val = k.compare(root->data.first);
+      if(compare_val < 0){ // k < key of root
+        addAll_helper(root->left, vt, k);
+      }else{
+        addAll_helper(root->right, vt, k);
+      }
+    }
   }
 };
 

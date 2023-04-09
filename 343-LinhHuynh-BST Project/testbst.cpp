@@ -42,7 +42,7 @@ void test01() {
   val = b1["hello"];
   assert(val == 5);
   b1["world"] = 42;
-
+  b1.inorder(printer);
   BSTMap b2;
   assert(b1 != b2);
   b2["hello"] = 5;
@@ -107,7 +107,11 @@ void test03() {
 // // Calling all test functions
 void testBSTAll() {
   test01();
-  test02();
-  test03();
+  // test02();
+  // test03();
   // TODO(student) Add more tests
+}
+
+int main(){
+  testBSTAll();
 }

@@ -125,42 +125,107 @@ BSTMap::mapped_type &BSTMap::operator[](const key_type &k) {
       }
     }
   }
+  return root->data.second; 
 }
-
+//Seat
 vector<BSTMap::value_type> BSTMap::getAll(const key_type &k) const {
   vector<value_type> v;
+  addAll_helper(root, v, k);
   return v;
 }
 
 // 0 if empty, 1 if only root, otherwise
 // height of root is max height of subtrees + 1
-int BSTMap::height() const { return 0; }
+int BSTMap::height() const {
+  return getHeight(root);
+}
 
-// height of a Node, nullptr is 0, root is 1, static, no access to 'this'
-// helper function to height(), used by printVertical
-int BSTMap::getHeight(const Node *n) { return 0; }
+int BSTMap::getHeight(const Node *n) { 
+  if (n == nullptr) {
+      return 0;
+  }
+  return 1 + max(getHeight(n->left), getHeight(n->right));
+ }
 
 // same as contains, but returns 1 or 0
 // compatibility with std::map
-size_t BSTMap::count(const string &k) const { return 0; }
+size_t BSTMap::count(const string &k) const {
+  return contains(k);
+}
 
+// created a helper function in header file
 // inorder traversal: left-root-right
 // takes a function that takes a single parameter of type T
-void BSTMap::inorder(void visit(const value_type &item)) const {}
+void BSTMap::inorder(void visit(const value_type& item)) const {
+    // created a helper function in header file
+    inorder_helper(root, visit);
+
+}
 
 // preorder traversal: root-left-right
-void BSTMap::preorder(void visit(const value_type &item)) const {}
+void BSTMap::preorder(void visit(const value_type& item)) const {
+    // helper function
+    preorder_helper(root, visit);
+}
 
 // postorder traversal: left-right-root
-void BSTMap::postorder(void visit(const value_type &item)) const {}
+void BSTMap::postorder(void visit(const value_type& item)) const {
+    //helper function
+    postorder_helper(root, visit);
+}
+
 
 // balance the BST by saving all nodes to a vector inorder
 // and then recreating the BST from the vector
-void BSTMap::rebalance() {}
+void BSTMap::rebalance() {
+  //save all nods to a vector inorder
+  vector<value_type> vt;
+  saveInorder(root, vt);
+
+  //recreating the BST
+  // BSTMap(vt);
+  clear(); //clear tree
+  root = nullptr;
+
+  for(int i = 0; i < vt.size(); i++){
+    if(root == nullptr){
+      //create the root
+      root = new Node(vt[i]); //ceate a single node with data v[i] and points the root to it
+    }else{//insert to BST
+      Node* newNode = new Node(vt[i]);
+      //v[i] = <"Shanghai, China", 14608512>
+      Node* current = root;
+      while(current != nullptr){
+        int compare_val = compareNode(newNode, current);
+        if( compare_val == -1){
+          if(current->left == nullptr){
+            current->left = newNode; //insert newNode to the left of current
+            break;
+          }else{
+            current = current->left; //move current to left side
+          }
+        }else{
+          if(compare_val == 1){
+            if(current->right == nullptr){
+              current->right = newNode;
+              break;
+            }else{
+              current = current->right;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 // trees are equal if they have the same structure
 // AND the same item values at all the nodes
-bool BSTMap::operator==(const BSTMap &other) const { return true; }
+bool BSTMap::operator==(const BSTMap &other) const { 
+  return compareTwoTrees(root, other.root);
+}
 
 // not == to each other
-bool BSTMap::operator!=(const BSTMap &other) const { return true; }
+bool BSTMap::operator!=(const BSTMap &other) const {
+  return !compareTwoTrees(root, other.root);
+}
