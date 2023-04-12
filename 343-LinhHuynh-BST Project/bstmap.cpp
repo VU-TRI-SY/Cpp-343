@@ -7,6 +7,7 @@
 
 #include "bstmap.h"
 #include <cassert>
+#include <algorithm>
 
 using namespace std;
 
@@ -19,36 +20,15 @@ BSTMap::BSTMap(const BSTMap &bst) {
 // create a tree to have all items in that array
 // with the minimum height (uses same helper as rebalance)
 BSTMap::BSTMap(const vector<value_type> &v) {
+  //sort input vector: ascending order
+  //call rebalance_helper
+  vector<value_type> vt;
   for(int i = 0; i < v.size(); i++){
-    if(root == nullptr){
-      //create the root
-      root = new Node(v[i]); //ceate a single node with data v[i] and points the root to it
-    }else{//insert to BST
-      Node* newNode = new Node(v[i]);
-      //v[i] = <"Shanghai, China", 14608512>
-      Node* current = root;
-      while(current != nullptr){
-        int compare_val = compareNode(newNode, current);
-        if( compare_val == -1){
-          if(current->left == nullptr){
-            current->left = newNode; //insert newNode to the left of current
-            break;
-          }else{
-            current = current->left; //move current to left side
-          }
-        }else{
-          if(compare_val == 1){
-            if(current->right == nullptr){
-              current->right = newNode;
-              break;
-            }else{
-              current = current->right;
-            }
-          }
-        }
-      }
-    }
+    vt.push_back(v[i]);
   }
+
+  sort(vt.begin(), vt.end(), [](const value_type& v1, const value_type& v2){ return v1.first < v2.first; } );
+  root = rebalance_helper(vt, 0, vt.size()-1);
 }
 
 // destructor
@@ -181,42 +161,10 @@ void BSTMap::rebalance() {
   //save all nods to a vector inorder
   vector<value_type> vt;
   saveInorder(root, vt);
-
   //recreating the BST
   // BSTMap(vt);
   clear(); //clear tree
-  root = nullptr;
-
-  for(int i = 0; i < vt.size(); i++){
-    if(root == nullptr){
-      //create the root
-      root = new Node(vt[i]); //ceate a single node with data v[i] and points the root to it
-    }else{//insert to BST
-      Node* newNode = new Node(vt[i]);
-      //v[i] = <"Shanghai, China", 14608512>
-      Node* current = root;
-      while(current != nullptr){
-        int compare_val = compareNode(newNode, current);
-        if( compare_val == -1){
-          if(current->left == nullptr){
-            current->left = newNode; //insert newNode to the left of current
-            break;
-          }else{
-            current = current->left; //move current to left side
-          }
-        }else{
-          if(compare_val == 1){
-            if(current->right == nullptr){
-              current->right = newNode;
-              break;
-            }else{
-              current = current->right;
-            }
-          }
-        }
-      }
-    }
-  }
+  root = rebalance_helper(vt, 0, vt.size()-1);
 }
 
 // trees are equal if they have the same structure

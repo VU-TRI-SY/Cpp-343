@@ -202,19 +202,20 @@ private:
     if (node != nullptr)
     {
       inorder_helper(node->left, visit);
-      visit(node->data);
-      // cout << node->data.first << " " << node->data.second << endl;
+      // visit(node->data);
+      cout << "(" << node->data.first << ", " << node->data.second << ") ";
       inorder_helper(node->right, visit);
     }
   }
 
   void preorder_helper(Node *node, void visit(const value_type &item)) const
   {
+    
     if (node != nullptr)
     {
       visit(node->data);
-      inorder_helper(node->left, visit);
-      inorder_helper(node->right, visit);
+      preorder_helper(node->left, visit);
+      preorder_helper(node->right, visit);
     }
   }
 
@@ -222,8 +223,8 @@ private:
   {
     if (node != nullptr)
     {
-      inorder_helper(node->left, visit);
-      inorder_helper(node->right, visit);
+      postorder_helper(node->left, visit);
+      postorder_helper(node->right, visit);
       visit(node->data);
     }
   }
@@ -234,7 +235,7 @@ private:
 
     saveInorder(root->left, vt);
     vt.push_back(root->data);
-    saveInorder(root->left, vt);
+    saveInorder(root->right, vt);
   }
 
   bool compareTwoTrees(Node* root1, Node* root2) const{
@@ -264,8 +265,8 @@ private:
   }
 
   bool isPrefix(const key_type& k1, const key_type& k2) const{//check k2 is substring (prefix) of k1 or not
-    int i = 0;
-    int j = 0;
+    size_t i = 0;
+    size_t j = 0;
     size_t len1 = k1.size();
     size_t len2 = k2.size();
 
@@ -307,6 +308,27 @@ private:
       }
     }
   }
+
+  Node* rebalance_helper(vector<value_type>& vt, int left, int right){
+    if (left > right) {
+      return nullptr;
+    }
+    int mid = (left + right) / 2;
+    Node* node = new Node(vt[mid]);
+    node->left = rebalance_helper(vt, left, mid - 1);
+    node->right = rebalance_helper(vt, mid + 1, right);
+    return node;
+  }
+
+
+  // Node* rebalance_helper(Node*& root, vector<value_type>& vt, int left, int right){
+  //   if(left > right) return nullptr;
+  //   int mid = (left + right)/2;
+  //   root = new Node(vt[mid]);
+  //   root->left = rebalance_helper(root->left, vt, left, mid-1);
+  //   root->right = rebalance_helper(root->right, vt, mid+1, right);
+  //   return root;
+  // }
 };
 
 #endif // BSTMAP_H

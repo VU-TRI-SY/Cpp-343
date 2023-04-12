@@ -34,9 +34,31 @@ void testAC02() {
   cout << "Ending tesAC02" << endl;
 }
 
+void testAC03() {
+  cout << "Starting AC test03" << endl;
+  cout << "* Testing cities autocomplete" << endl;
+  Autocomplete ac;
+  ac.readFile("cities.txt");
+  auto v = ac.complete("Seat");
+  // assert(v.size() == 47);
+  // assert(v[0].first == "Seattle, Washington, United States");
+  // assert(v[0].second == 608660);
+  // assert(v[46].first == "Seabeck, Washington, United States");
+  // assert(v[46].second == 1105);
+  for(int i = 0; i < v.size(); i++){
+    cout << v[i].first << "     " << v[i].second << endl;
+  }
+  cout << "Ending tesAC02" << endl;
+}
+
 // // Calling all test functions
 void testACAll() {
   testAC01();
   testAC02();
   // TODO(student) Add more tests
+  testAC03();
+}
+
+int main(){
+  testACAll();
 }
