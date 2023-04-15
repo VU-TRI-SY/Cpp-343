@@ -129,7 +129,7 @@ int BSTMap::getHeight(const Node *n) {
 
 // same as contains, but returns 1 or 0
 // compatibility with std::map
-size_t BSTMap::count(const string &k) const {
+size_t BSTMap::count(const key_type &k) const {
   return contains(k);
 }
 

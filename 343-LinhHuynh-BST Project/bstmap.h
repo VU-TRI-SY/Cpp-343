@@ -202,8 +202,7 @@ private:
     if (node != nullptr)
     {
       inorder_helper(node->left, visit);
-      // visit(node->data);
-      cout << "(" << node->data.first << ", " << node->data.second << ") ";
+      visit(node->data);
       inorder_helper(node->right, visit);
     }
   }
@@ -263,7 +262,7 @@ private:
       return false;
     }
   }
-
+  
   bool isPrefix(const key_type& k1, const key_type& k2) const{//check k2 is substring (prefix) of k1 or not
     size_t i = 0;
     size_t j = 0;

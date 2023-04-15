@@ -102,50 +102,57 @@ void test03() {
   cout << "Ending test03" << endl;
 }
 
+//Testing count and contains
+void test04(){
+  cout << "Starting test04" << endl;
+  cout << "* Testing count and contains" << endl;
+  BSTMap b;
+  b["5"] = 5;
+  b["3"] = 3;
+  b["8"] = 8;
+  b["2"] = 2;
+  b["4"] = 4;
+  b["9"] = 9;
+  b["6"] = 6;
+  b["7"] = 7;
+  assert(b.contains("6") == true);
+  assert(b.contains("10") == false);
+  assert(b.count("5") == 1);
+  assert(b.count("1") == 0);
+  cout << "Ending test04" << endl;
+}
+
+//Testing size, erase, clear
+void test05(){
+  cout << "Starting test05" << endl;
+  cout << "* Testing size, erase and clear" << endl;
+  BSTMap b;
+  b["5"] = 5;
+  b["3"] = 3;
+  b["8"] = 8;
+  b["2"] = 2;
+  b["4"] = 4;
+  b["9"] = 9;
+  b["6"] = 6;
+  b["7"] = 7;
+  assert(b.size() == 8);
+  b.erase("8");
+  assert(b.size() == 7);
+  b.erase("10");
+  assert(b.size() == 7);
+  b.clear();
+  assert(b.size() == 0);
+  cout << "Ending test05" << endl;
+}
+
 // // Calling all test functions
 void testBSTAll() {
-  // test01();
-  // test02();
-  // test03();
+  test01();
+  test02();
+  test03();
+  test04();
+  test05();
   // TODO(student) Add more tests
-  // test constructor
-  // vector<BSTMap::value_type> vt;
-  // vt.push_back(make_pair("1",1));
-  // vt.push_back(make_pair("2",2));
-  // vt.push_back(make_pair("3",3));
-  // vt.push_back(make_pair("4",4));
-  // vt.push_back(make_pair("5",5));
-  // vt.push_back(make_pair("6",6));
-  // BSTMap b(vt);
-  // b.inorder(printer);
-  // cout << endl;
-  // cout << b.height() << endl;
-
-  // BSTMap b1;
-  // b1["1"] = 1;
-  // b1["2"] = 2;
-  // b1["3"] = 3;
-  // b1["4"] = 4;
-  // b1["5"] = 5;
-  // b1["6"] = 6;
-
-  // b1.inorder(printer);
-  // cout << endl;
-  // cout << b1.height() << endl;
-
-  BSTMap b1;
-  b1["5"] = 5;
-  b1["3"] = 3;
-  b1["8"] = 8;
-  b1["2"] = 2;
-  b1["4"] = 4;
-  b1["6"] = 6;
-  b1["9"] = 9;
-  b1["7"] = 7;
-  BSTMap::printVertical(cout, b1.root);
-  cout << endl;
-  b1.erase("5");
-  BSTMap::printVertical(cout, b1.root);
 }
 
 int main(){
