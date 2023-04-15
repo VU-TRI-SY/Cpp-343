@@ -177,3 +177,12 @@ bool BSTMap::operator==(const BSTMap &other) const {
 bool BSTMap::operator!=(const BSTMap &other) const {
   return !compareTwoTrees(root, other.root);
 }
+
+bool BSTMap::erase(const key_type &k){
+  if(contains(k) == true){
+    deleteNode_helper(root, k);
+    return true;
+  }
+  else 
+    return false;
+}

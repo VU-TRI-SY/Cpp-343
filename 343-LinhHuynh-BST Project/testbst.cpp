@@ -109,30 +109,43 @@ void testBSTAll() {
   // test03();
   // TODO(student) Add more tests
   // test constructor
-  vector<BSTMap::value_type> vt;
-  vt.push_back(make_pair("1",1));
-  vt.push_back(make_pair("2",2));
-  vt.push_back(make_pair("3",3));
-  vt.push_back(make_pair("4",4));
-  vt.push_back(make_pair("5",5));
-  vt.push_back(make_pair("6",6));
-  BSTMap b(vt);
-  b.inorder(printer);
-  cout << endl;
-  cout << b.height() << endl;
+  // vector<BSTMap::value_type> vt;
+  // vt.push_back(make_pair("1",1));
+  // vt.push_back(make_pair("2",2));
+  // vt.push_back(make_pair("3",3));
+  // vt.push_back(make_pair("4",4));
+  // vt.push_back(make_pair("5",5));
+  // vt.push_back(make_pair("6",6));
+  // BSTMap b(vt);
+  // b.inorder(printer);
+  // cout << endl;
+  // cout << b.height() << endl;
+
+  // BSTMap b1;
+  // b1["1"] = 1;
+  // b1["2"] = 2;
+  // b1["3"] = 3;
+  // b1["4"] = 4;
+  // b1["5"] = 5;
+  // b1["6"] = 6;
+
+  // b1.inorder(printer);
+  // cout << endl;
+  // cout << b1.height() << endl;
 
   BSTMap b1;
-  b1["1"] = 1;
-  b1["2"] = 2;
-  b1["3"] = 3;
-  b1["4"] = 4;
   b1["5"] = 5;
+  b1["3"] = 3;
+  b1["8"] = 8;
+  b1["2"] = 2;
+  b1["4"] = 4;
   b1["6"] = 6;
-
-  b1.inorder(printer);
+  b1["9"] = 9;
+  b1["7"] = 7;
+  BSTMap::printVertical(cout, b1.root);
   cout << endl;
-  cout << b1.height() << endl;
-
+  b1.erase("5");
+  BSTMap::printVertical(cout, b1.root);
 }
 
 int main(){

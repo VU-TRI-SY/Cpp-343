@@ -105,7 +105,7 @@ public:
   // not == to each other
   bool operator!=(const BSTMap &other) const;
 
-private:
+// private:
   // Node for BST
   struct Node
   {
@@ -133,7 +133,7 @@ private:
   Node *root{nullptr};
 
   // print tree sideways with root on left
-  // static ostream &printSideways(ostream &out, const Node *curr, int level = 0);
+  static ostream &printSideways(ostream &out, const Node *curr, int level = 0);
 
   // // helper for printVertical
   static ostream &centeredPrint(ostream &out, int space, const string &str,
@@ -329,6 +329,42 @@ private:
   //   root->right = rebalance_helper(root->right, vt, mid+1, right);
   //   return root;
   // }
+
+
+  Node* findMin_helper(Node* node){
+    while(node->left != nullptr){
+      node = node->left;
+    }
+    return node;
+  }
+
+  Node* deleteNode_helper(Node* root,const key_type &k) {
+    if (root == NULL) return NULL;
+    int compare_val = k.compare(root->data.first);
+    if (compare_val < 0) {
+        root->left = deleteNode_helper(root->left, k);
+    } else if (compare_val > 0) {
+        root->right = deleteNode_helper(root->right, k);
+    } else {
+        if (root->left == NULL && root->right == NULL) {
+            delete root;
+            return NULL;
+        } else if (root->left == NULL) {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        } else if (root->right == NULL) {
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        } else {
+            Node* minNode = findMin_helper(root->right);
+            root->data = minNode->data;
+            root->right = deleteNode_helper(root->right, minNode->data.first);
+        }
+    }
+    return root;
+}
 };
 
 #endif // BSTMAP_H
