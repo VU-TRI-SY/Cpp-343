@@ -154,7 +154,3 @@ void testBSTAll() {
   test05();
   // TODO(student) Add more tests
 }
-
-int main(){
-  testBSTAll();
-}

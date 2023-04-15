@@ -7,8 +7,8 @@
 
 using namespace std;
 
-void testBSTAll(){};
-void testACAll(){};
+void testBSTAll();
+void testACAll();
 
 void testMain() {
   testBSTAll();

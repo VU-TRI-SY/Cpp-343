@@ -77,7 +77,7 @@ void testAC05() {
 }
 
 void testAC06() {
-  cout << "Starting AC test04" << endl;
+  cout << "Starting AC test06" << endl;
   cout << "* Testing cities autocomplete" << endl;
   Autocomplete ac;
   ac.readFile("wiktionary.txt");
@@ -98,8 +98,4 @@ void testACAll() {
   testAC04();
   testAC05();
   testAC06();
-}
-
-int main(){
-  testACAll();
 }
