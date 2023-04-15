@@ -5,7 +5,8 @@
 
 using namespace std;
 
-class Autocomplete {
+class Autocomplete
+{
 public:
   Autocomplete() = default;
   void readFile(const string &fileName);
@@ -13,22 +14,25 @@ public:
 
 private:
   // BST of phrases and their frequency
-  BSTMap phrases; 
+  BSTMap phrases;
 
   // sorter
   bool static sortByWeight(BSTMap::value_type &a, BSTMap::value_type &b);
 
-  string trim(const string& s) {
+  string trim(const string &s)
+  {
     // Find the first non-whitespace character
     auto start = s.begin();
-    while (start != s.end() && isspace(*start)) {
-        ++start;
+    while (start != s.end() && isspace(*start))
+    {
+      ++start;
     }
 
     // Find the last non-whitespace character
     auto end = s.end();
-    do {
-        --end;
+    do
+    {
+      --end;
     } while (end != start && isspace(*end));
 
     // Return the trimmed string

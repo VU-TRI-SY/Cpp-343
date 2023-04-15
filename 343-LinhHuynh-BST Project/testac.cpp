@@ -6,7 +6,8 @@
 
 using namespace std;
 
-void testAC01() {
+void testAC01()
+{
   cout << "Starting AC test01" << endl;
   cout << "* Testing basic autocomplete" << endl;
   Autocomplete ac;
@@ -20,7 +21,8 @@ void testAC01() {
   cout << "Ending tesAC01" << endl;
 }
 
-void testAC02() {
+void testAC02()
+{
   cout << "Starting AC test02" << endl;
   cout << "* Testing cities autocomplete" << endl;
   Autocomplete ac;
@@ -34,7 +36,8 @@ void testAC02() {
   cout << "Ending tesAC02" << endl;
 }
 
-void testAC03() {
+void testAC03()
+{
   cout << "Starting AC test03" << endl;
   cout << "* Testing cities autocomplete" << endl;
   Autocomplete ac;
@@ -48,7 +51,8 @@ void testAC03() {
   cout << "Ending tesAC03" << endl;
 }
 
-void testAC04() {
+void testAC04()
+{
   cout << "Starting AC test04" << endl;
   cout << "* Testing cities autocomplete" << endl;
   Autocomplete ac;
@@ -62,7 +66,8 @@ void testAC04() {
   cout << "Ending tesAC04" << endl;
 }
 
-void testAC05() {
+void testAC05()
+{
   cout << "Starting AC test05" << endl;
   cout << "* Testing cities autocomplete" << endl;
   Autocomplete ac;
@@ -76,7 +81,8 @@ void testAC05() {
   cout << "Ending tesAC05" << endl;
 }
 
-void testAC06() {
+void testAC06()
+{
   cout << "Starting AC test06" << endl;
   cout << "* Testing cities autocomplete" << endl;
   Autocomplete ac;
@@ -91,7 +97,8 @@ void testAC06() {
 }
 
 // // Calling all test functions
-void testACAll() {
+void testACAll()
+{
   testAC01();
   testAC02();
   testAC03();

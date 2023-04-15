@@ -27,12 +27,14 @@ using namespace std;
 stringstream globalSS;
 
 // need to reset SS before calling this
-void printer(const BSTMap::value_type &p) {
+void printer(const BSTMap::value_type &p)
+{
   globalSS << "[" << p.first << "=" << p.second << "]";
 }
 
 // // Testing == and []
-void test01() {
+void test01()
+{
   cout << "Starting test01" << endl;
   cout << "* Testing ==, !=, [] and copy constructor" << endl;
   BSTMap b1;
@@ -55,7 +57,8 @@ void test01() {
 }
 
 // Testing traversal
-void test02() {
+void test02()
+{
   cout << "Starting test02" << endl;
   cout << "* Testing traversal" << endl;
   BSTMap b;
@@ -64,8 +67,6 @@ void test02() {
   b["b"] = 3;
   b["e"] = 4;
   b["z"] = 50;
-  // cout << b;
-
   globalSS.str("");
   b.inorder(printer);
   string order = globalSS.str();
@@ -84,7 +85,8 @@ void test02() {
 }
 
 // Testing rebalance
-void test03() {
+void test03()
+{
   cout << "Starting test03" << endl;
   cout << "* Testing rebalance" << endl;
   BSTMap b;
@@ -102,8 +104,9 @@ void test03() {
   cout << "Ending test03" << endl;
 }
 
-//Testing count and contains
-void test04(){
+// Testing count and contains
+void test04()
+{
   cout << "Starting test04" << endl;
   cout << "* Testing count and contains" << endl;
   BSTMap b;
@@ -122,8 +125,9 @@ void test04(){
   cout << "Ending test04" << endl;
 }
 
-//Testing size, erase, clear
-void test05(){
+// Testing size, erase, clear
+void test05()
+{
   cout << "Starting test05" << endl;
   cout << "* Testing size, erase and clear" << endl;
   BSTMap b;
@@ -146,7 +150,8 @@ void test05(){
 }
 
 // // Calling all test functions
-void testBSTAll() {
+void testBSTAll()
+{
   test01();
   test02();
   test03();

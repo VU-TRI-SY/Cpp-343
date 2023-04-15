@@ -197,8 +197,7 @@ private:
 
   void inorder_helper(Node *node, void visit(const value_type &item)) const
   {
-    
-    
+
     if (node != nullptr)
     {
       inorder_helper(node->left, visit);
@@ -209,7 +208,7 @@ private:
 
   void preorder_helper(Node *node, void visit(const value_type &item)) const
   {
-    
+
     if (node != nullptr)
     {
       visit(node->data);
@@ -228,8 +227,9 @@ private:
     }
   }
 
-  void saveInorder(Node* root, vector<value_type>& vt){
-    if(root == nullptr)
+  void saveInorder(Node *root, vector<value_type> &vt)
+  {
+    if (root == nullptr)
       return;
 
     saveInorder(root->left, vt);
@@ -237,12 +237,15 @@ private:
     saveInorder(root->right, vt);
   }
 
-  bool compareTwoTrees(Node* root1, Node* root2) const{
-    if(root1 == nullptr && root2 == nullptr){
+  bool compareTwoTrees(Node *root1, Node *root2) const
+  {
+    if (root1 == nullptr && root2 == nullptr)
+    {
       return true;
     }
 
-    if(root1 == nullptr || root2 == nullptr){
+    if (root1 == nullptr || root2 == nullptr)
+    {
       return false;
     }
 
@@ -250,75 +253,90 @@ private:
     //   return false;
     // }
 
-    //2 trees are not empty
-    if(root1->data.first != root2->data.first || root1->data.second != root2->data.second){
+    // 2 trees are not empty
+    if (root1->data.first != root2->data.first || root1->data.second != root2->data.second)
+    {
       return false;
     }
 
     // return compareTwoTrees(root1->left, root2->left) && compareTwoTrees(root1->right, root2->right);
-    if(compareTwoTrees(root1->left, root2->left) == true){
+    if (compareTwoTrees(root1->left, root2->left) == true)
+    {
       return compareTwoTrees(root1->right, root2->right);
-    }else{
+    }
+    else
+    {
       return false;
     }
   }
-  
-  bool isPrefix(const key_type& k1, const key_type& k2) const{//check k2 is substring (prefix) of k1 or not
+
+  bool isPrefix(const key_type &k1, const key_type &k2) const
+  { // check k2 is substring (prefix) of k1 or not
     size_t i = 0;
     size_t j = 0;
     size_t len1 = k1.size();
     size_t len2 = k2.size();
 
-    while(i < len1 && j < len2){
-      if(k1[i] != k2[j])
+    while (i < len1 && j < len2)
+    {
+      if (k1[i] != k2[j])
         return false;
-      
+
       i++;
       j++;
     }
 
     //"Helloaaaa"
     //"Hello"
-    if(i == len1 && j == len2)
+    if (i == len1 && j == len2)
       return true;
 
-    if(j == len2 && i < len1)
+    if (j == len2 && i < len1)
       return true;
 
-    //i = len1 and j < len2
+    // i = len1 and j < len2
     return false;
-  } 
+  }
 
-  void addAll_helper(Node* root, vector<value_type>& vt, const key_type &k) const{
-    if(root == nullptr) return;
+  void addAll_helper(Node *root, vector<value_type> &vt, const key_type &k) const
+  {
+    if (root == nullptr)
+      return;
 
-    //k = "Seat"
-    //root->data = <"Seaton, South Australia, Australia", 9704>
-    if(isPrefix(root->data.first, k)){ //check k is prefix of root->data.first
+    // k = "Seat"
+    // root->data = <"Seaton, South Australia, Australia", 9704>
+    if (isPrefix(root->data.first, k))
+    { // check k is prefix of root->data.first
       vt.push_back(root->data);
       addAll_helper(root->left, vt, k);
       addAll_helper(root->right, vt, k);
-    }else{
+    }
+    else
+    {
       int compare_val = k.compare(root->data.first);
-      if(compare_val < 0){ // k < key of root
+      if (compare_val < 0)
+      { // k < key of root
         addAll_helper(root->left, vt, k);
-      }else{
+      }
+      else
+      {
         addAll_helper(root->right, vt, k);
       }
     }
   }
 
-  Node* rebalance_helper(vector<value_type>& vt, int left, int right){
-    if (left > right) {
+  Node *rebalance_helper(vector<value_type> &vt, int left, int right)
+  {
+    if (left > right)
+    {
       return nullptr;
     }
     int mid = (left + right) / 2;
-    Node* node = new Node(vt[mid]);
+    Node *node = new Node(vt[mid]);
     node->left = rebalance_helper(vt, left, mid - 1);
     node->right = rebalance_helper(vt, mid + 1, right);
     return node;
   }
-
 
   // Node* rebalance_helper(Node*& root, vector<value_type>& vt, int left, int right){
   //   if(left > right) return nullptr;
@@ -329,41 +347,56 @@ private:
   //   return root;
   // }
 
-
-  Node* findMin_helper(Node* node){
-    while(node->left != nullptr){
+  Node *findMin_helper(Node *node)
+  {
+    while (node->left != nullptr)
+    {
       node = node->left;
     }
     return node;
   }
 
-  Node* deleteNode_helper(Node* root,const key_type &k) {
-    if (root == NULL) return NULL;
+  Node *deleteNode_helper(Node *root, const key_type &k)
+  {
+    if (root == NULL)
+      return NULL;
     int compare_val = k.compare(root->data.first);
-    if (compare_val < 0) {
-        root->left = deleteNode_helper(root->left, k);
-    } else if (compare_val > 0) {
-        root->right = deleteNode_helper(root->right, k);
-    } else {
-        if (root->left == NULL && root->right == NULL) {
-            delete root;
-            return NULL;
-        } else if (root->left == NULL) {
-            Node* temp = root->right;
-            delete root;
-            return temp;
-        } else if (root->right == NULL) {
-            Node* temp = root->left;
-            delete root;
-            return temp;
-        } else {
-            Node* minNode = findMin_helper(root->right);
-            root->data = minNode->data;
-            root->right = deleteNode_helper(root->right, minNode->data.first);
-        }
+    if (compare_val < 0)
+    {
+      root->left = deleteNode_helper(root->left, k);
+    }
+    else if (compare_val > 0)
+    {
+      root->right = deleteNode_helper(root->right, k);
+    }
+    else
+    {
+      if (root->left == NULL && root->right == NULL)
+      {
+        delete root;
+        return NULL;
+      }
+      else if (root->left == NULL)
+      {
+        Node *temp = root->right;
+        delete root;
+        return temp;
+      }
+      else if (root->right == NULL)
+      {
+        Node *temp = root->left;
+        delete root;
+        return temp;
+      }
+      else
+      {
+        Node *minNode = findMin_helper(root->right);
+        root->data = minNode->data;
+        root->right = deleteNode_helper(root->right, minNode->data.first);
+      }
     }
     return root;
-}
+  }
 };
 
 #endif // BSTMAP_H
