@@ -105,7 +105,7 @@ public:
   // not == to each other
   bool operator!=(const BSTMap &other) const;
 
-// private:
+private:
   // Node for BST
   struct Node
   {
