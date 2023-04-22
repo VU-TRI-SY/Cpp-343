@@ -149,6 +149,22 @@ void test05()
   cout << "Ending test05" << endl;
 }
 
+void test06(){
+  cout << "Starting test06" << endl;
+  cout << "* Testing printSideways, printVertical" << endl;
+  BSTMap b;
+  b["5"] = 5;
+  b["3"] = 3;
+  b["8"] = 8;
+  b["2"] = 2;
+  b["4"] = 4;
+  b["9"] = 9;
+  b["6"] = 6;
+  b["7"] = 7;
+  
+  cout << b << endl;
+  cout << "Ending test06" << endl;
+}
 // // Calling all test functions
 void testBSTAll()
 {
@@ -157,5 +173,6 @@ void testBSTAll()
   test03();
   test04();
   test05();
+  test06();
   // TODO(student) Add more tests
 }

@@ -16,7 +16,7 @@ ostream &operator<<(ostream &out, const BSTMap::Node &n) {
 ostream &operator<<(ostream &out, const BSTMap &bst) {
   BSTMap::printSideways(out, bst.root);
   out << endl;
-  // BSTMap::printVertical([out], bst.root);
+  BSTMap::printVertical(out, bst.root);
   return out;
 }
 
