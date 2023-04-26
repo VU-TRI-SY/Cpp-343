@@ -9,6 +9,7 @@
 #include <set>
 #include <utility>
 #include <vector>
+#include <climits>
 
 using namespace std;
 
@@ -211,18 +212,107 @@ void Graph::bfs(const string &startLabel, void visit(const string &label)) {
 
 // store the weights in a map
 // store the previous label in a map
-pair<map<string, int>, map<string, string>>
-Graph::dijkstra(const string &startLabel) const {
+pair<map<string, int>, map<string, string>> Graph::dijkstra(const string &startLabel) const {
   map<string, int> weights;
   map<string, string> previous;
   // TODO(student) Your code here
+  map<string, int> cost;
+  if(contains(startLabel) == true){
+    map<string, bool> vst;
+    priority_queue <pair<string, int>, vector <pair<string, int>>, greater <pair<string, int>> > pq;
+
+    for(auto it = graph.begin(); it != graph.end(); it++){
+      cost[it->first] = INT_MAX;
+      vst[it->first] = false;
+    }
+
+    cost[startLabel] = 0;
+    pq.push(make_pair(startLabel, 0));
+
+    string previous_vertex = startLabel;
+
+    while(!pq.empty()){
+      pair<string, int> e = pq.top();
+      pq.pop();
+
+      string node = e.first;
+      if(vst[node] == true){
+        continue;
+      }
+
+      vst[node] = true;
+      previous[node] = previous_vertex;
+      previous_vertex = node;
+      weights[node] = cost[node];
+
+      for(auto temp : graph.at(node)){
+        string cv = temp.first;
+        int w = temp.second;
+        if(cost[cv] > cost[node] + w){
+          cost[cv] = cost[node] + w;
+          pq.push(make_pair(cv, cost[cv]));
+        }
+      }
+    }
+
+    weights.erase(startLabel);
+    previous.erase(startLabel); 
+
+  }
+  
   return make_pair(weights, previous);
 }
 
 // minimum spanning tree using Prim's algorithm
-int Graph::mstPrim(const string &startLabel,
-                   void visit(const string &from, const string &to,
-                              int weight)) const {
+int Graph::mstPrim(const string &startLabel, void visit(const string &from, const string &to, int weight)) const {
+  if(contains(startLabel)){
+    map<string, int> dist;
+    map<string, bool> vst;
+    priority_queue <pair<string, int>, vector <pair<string, int>>, greater <pair<string, int>> > pq;
+    for(auto it = graph.begin(); it != graph.end(); it++){
+      dist[it->first] = INT_MAX;
+      vst[it->first] = false;
+    }
+
+    dist[startLabel] = 0;
+    pq.push(make_pair(startLabel, 0));
+    string previous_vertex = startLabel;
+    while(!pq.empty()){
+        pair<string, int> p = pq.top(); 
+        pq.pop();
+        string u = p.first;
+        if(vst[u]) continue;
+        vst[u] = true;
+        if(u != startLabel){
+          int wei = p.second;
+          // if in adjcentlist of u has vertex v that v-u = wei
+          for(auto tp: graph.at(u)){
+            if(tp.second == wei){
+              visit(tp.first, u, wei);
+              break;
+            }
+          }
+        }
+        // visit()
+        for (auto tmp : graph.at(u))
+        {
+            string v = tmp.first;
+            int wei = tmp.second;
+            if(wei < dist[v] && vst[v] == 0) {
+                dist[v] = wei;
+                pq.push(make_pair(v, dist[v]));
+            }
+        }
+    }
+
+    int res = 0;
+    for(auto it = dist.begin(); it != dist.end(); it++){
+      res += it->second;
+    }
+
+    return res;
+  }
+
   return -1;
 }
 
