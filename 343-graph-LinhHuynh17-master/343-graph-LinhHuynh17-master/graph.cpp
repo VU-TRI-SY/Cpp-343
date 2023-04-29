@@ -229,7 +229,7 @@ pair<map<string, int>, map<string, string>> Graph::dijkstra(const string &startL
     cost[startLabel] = 0;
     pq.push(make_pair(startLabel, 0));
 
-    string previous_vertex = startLabel;
+    // string previous_vertex = startLabel;
 
     while(!pq.empty()){
       pair<string, int> e = pq.top();
@@ -241,8 +241,8 @@ pair<map<string, int>, map<string, string>> Graph::dijkstra(const string &startL
       }
 
       vst[node] = true;
-      previous[node] = previous_vertex;
-      previous_vertex = node;
+      // previous[node] = previous_vertex;
+      // previous_vertex = node;
       weights[node] = cost[node];
 
       for(auto temp : graph.at(node)){
@@ -251,6 +251,7 @@ pair<map<string, int>, map<string, string>> Graph::dijkstra(const string &startL
         if(cost[cv] > cost[node] + w){
           cost[cv] = cost[node] + w;
           pq.push(make_pair(cv, cost[cv]));
+          previous[cv] = node;
         }
       }
     }
@@ -319,10 +320,7 @@ int Graph::mstPrim(const string &startLabel, void visit(const string &from, cons
 
 // minimum spanning tree using Prim's algorithm
 int Graph::mstKruskal(const string &startLabel, void visit(const string &from, const string &to, int weight)) const {
-  vector<edge> e;
-  int size_ = graph.size();
-  int ranked[size_+1];
-  string parent[size_+1];
+
   return -1;
 }
 
