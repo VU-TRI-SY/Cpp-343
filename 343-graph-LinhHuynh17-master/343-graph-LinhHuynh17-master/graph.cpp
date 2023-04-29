@@ -219,7 +219,7 @@ pair<map<string, int>, map<string, string>> Graph::dijkstra(const string &startL
   map<string, int> cost;
   if(contains(startLabel) == true){
     map<string, bool> vst;
-    priority_queue <pair<string, int>, vector <pair<string, int>>, greater <pair<string, int>> > pq;
+    priority_queue <pair<string, int>, vector <pair<string, int>>, greater_cmp <pair<string, int>>> pq;
 
     for(auto it = graph.begin(); it != graph.end(); it++){
       cost[it->first] = INT_MAX;
@@ -264,11 +264,12 @@ pair<map<string, int>, map<string, string>> Graph::dijkstra(const string &startL
 }
 
 // minimum spanning tree using Prim's algorithm
+
 int Graph::mstPrim(const string &startLabel, void visit(const string &from, const string &to, int weight)) const {
   if(contains(startLabel)){
     map<string, int> dist;
     map<string, bool> vst;
-    priority_queue <pair<string, int>, vector <pair<string, int>>, greater <pair<string, int>> > pq;
+    priority_queue <pair<string, int>, vector <pair<string, int>>, greater_cmp <pair<string, int>> > pq;
     for(auto it = graph.begin(); it != graph.end(); it++){
       dist[it->first] = INT_MAX;
       vst[it->first] = false;
@@ -317,9 +318,11 @@ int Graph::mstPrim(const string &startLabel, void visit(const string &from, cons
 }
 
 // minimum spanning tree using Prim's algorithm
-int Graph::mstKruskal(const string &startLabel,
-                      void visit(const string &from, const string &to,
-                                 int weight)) const {
+int Graph::mstKruskal(const string &startLabel, void visit(const string &from, const string &to, int weight)) const {
+  vector<edge> e;
+  int size_ = graph.size();
+  int ranked[size_+1];
+  string parent[size_+1];
   return -1;
 }
 

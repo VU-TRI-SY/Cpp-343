@@ -166,26 +166,26 @@ void testGraph0NotDirected() {
     return;
   }
 
-  // globalSS.str("");
-  // g.bfs("A", vertexPrinter);
-  // assert(globalSS.str() == "ACB" && "starting from A");
+  globalSS.str("");
+  g.bfs("A", vertexPrinter);
+  assert(globalSS.str() == "ABC" && "starting from A");
 
-  // globalSS.str("");
-  // g.dfs("B", vertexPrinter);
-  // assert(globalSS.str() == "BAC" && "starting from B");
+  globalSS.str("");
+  g.dfs("B", vertexPrinter);
+  assert(globalSS.str() == "BAC" && "starting from B");
 
-  // globalSS.str("");
-  // g.dfs("C", vertexPrinter);
-  // assert(globalSS.str() == "CAB" && "starting from C");
+  globalSS.str("");
+  g.dfs("C", vertexPrinter);
+  assert(globalSS.str() == "CAB" && "starting from C");
 
-  // globalSS.str("");
-  // g.dfs("X", vertexPrinter);
-  // assert(globalSS.str().empty() && "starting from X");
+  globalSS.str("");
+  g.dfs("X", vertexPrinter);
+  assert(globalSS.str().empty() && "starting from X");
 
   map<string, int> weights;
   map<string, string> previous;
   tie(weights, previous) = g.dijkstra("A");
-  // cout << "Dijkstra(A) weights is " << map2string(weights) << endl;
+  cout << "Dijkstra(A) weights is " << map2string(weights) << endl;
   assert(map2string(weights) == "[B:1][C:4]" && "Dijkstra(A) weights");
   // cout << "Dijkstra(A) previous is " << map2string(previous) << endl;
   assert(map2string(previous) == "[B:A][C:B]" && "Dijkstra(A) previous");
@@ -211,6 +211,7 @@ void testGraph0NotDirected() {
 
   globalSS.str("");
   mstLength = g.mstPrim("C", edgePrinter);
+  cout << globalSS.str() << endl;
   assert(mstLength == 4 && "mst C is 4");
   assert(globalSS.str() == "[CB 3][BA 1]");
 

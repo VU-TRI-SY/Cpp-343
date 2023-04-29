@@ -103,6 +103,19 @@ public:
   int mstKruskal(const string &startLabel,
                  void visit(const string &from, const string &to,
                             int weight)) const;
+
+  template <class T> struct greater_cmp{
+    bool operator() (const T& x, const T& y) const {
+      return x.second > y.second;
+    }
+  };
+
+  struct edge{
+    string u;
+    string v;
+    int w;
+  };
+
 };
 
 #endif // GRAPH_H
