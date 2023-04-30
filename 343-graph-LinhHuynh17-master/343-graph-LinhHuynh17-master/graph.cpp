@@ -177,11 +177,17 @@ void Graph::dfs(const string &startLabel, void visit(const string &label)) {
       string vertex = st.top();
       st.pop();
       visit(vertex);
-      for(auto adj : graph[vertex]){
-        if(!vst[adj.first]){
-          st.push(adj.first);
-          vst[adj.first] = 1;
-        }
+      // for(auto adj : graph[vertex]){
+      //   if(!vst[adj.first]){
+      //     st.push(adj.first);
+      //     vst[adj.first] = 1;
+      //   }
+      // }
+      for (auto it = graph[vertex].rbegin(); it != graph[vertex].rend(); ++it) {
+        if(!vst[it->first]){
+            st.push(it->first);
+            vst[it->first] = 1;
+          }
       }
     }
   }
@@ -319,7 +325,6 @@ int Graph::mstPrim(const string &startLabel, void visit(const string &from, cons
   return -1;
 }
 
-// minimum spanning tree using Prim's algorithm
 int Graph::mstKruskal(const string &startLabel, void visit(const string &from, const string &to, int weight)) const {
   if(!contains(startLabel)) return -1;
 
@@ -330,7 +335,11 @@ int Graph::mstKruskal(const string &startLabel, void visit(const string &from, c
 
   for(auto it = graph.begin(); it != graph.end(); it++){
     for(auto& tp: it->second){
-      e.push_back({it->first, tp.first, tp.second});
+      if(it->first.compare(tp.first) < 0){
+        e.push_back({it->first, tp.first, tp.second});
+      }else if(it->first.compare(tp.first) > 0){
+        e.push_back({tp.first, it->first, tp.second});
+      }
     }
 
     ranked[it->first] = 0;
@@ -358,8 +367,6 @@ int Graph::mstKruskal(const string &startLabel, void visit(const string &from, c
     }
   }
   return res;
-
-
 }
 
 // read a text file and create the graph
@@ -377,6 +384,11 @@ bool Graph::readFile(const string &filename) {
   for (int i = 0; i < edges; ++i) {
     myfile >> fromVertex >> toVertex >> weight;
     connect(fromVertex, toVertex, weight);
+  }
+  for(auto it = graph.begin(); it != graph.end(); it++){
+    sort(it->second.begin(), it->second.end(), [](pair<string, int>& p1, pair<string, int>& p2){
+      return p1.first.compare(p2.first) < 0;
+    });
   }
   myfile.close();
   return true;
