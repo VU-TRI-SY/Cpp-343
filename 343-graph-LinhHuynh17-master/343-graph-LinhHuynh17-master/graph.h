@@ -104,36 +104,38 @@ public:
                  void visit(const string &from, const string &to,
                             int weight)) const;
 
-  template <class T> struct greater_cmp{
+  template <class T> struct GreaterCmp{ //helper for building min healp that contains pairs
     bool operator() (const T& x, const T& y) const {
       return x.second > y.second;
     }
   };
 
-  struct edge{
+  //all heplers for kruskal algorithm
+  struct Edge{
     string u;
     string v;
     int w;
   };
 
-  
   string root(string v, map<string, string>& parent) const{
-    if(parent[v] == "Null") return v;
+    if(parent[v] == "Null") {
+      return v;
+    }
     return parent[v] = root(parent[v], parent);
   }
 
-  void merge(string u, string v, map<string, int>& ranked, map<string, string>& parent) const{
+  void static merge(string u, string v, map<string, int>& ranked, map<string, string>& parent) {
     if(ranked[u] == ranked[v]){
         parent[u] = v;
         ranked[v] += 1;
     }else{
         if(ranked[u] > ranked[v]){
             parent[v] = u;
-        }else parent[u] = v;
+        }else { 
+          parent[u] = v;
+        }
     }
   }
-
-
 
 };
 

@@ -10,7 +10,9 @@ using namespace std;
 void testAll();
 
 int main() {
-  testAll();
-  cout << "Done!" << endl;
-  return 0;
+  // testAll();
+  // cout << "Done!" << endl;
+  // return 0;
+  string res;
+  cout << (res == "");
 }

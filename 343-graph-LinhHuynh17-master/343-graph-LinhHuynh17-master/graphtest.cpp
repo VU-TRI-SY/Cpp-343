@@ -90,7 +90,6 @@ void testGraph0DFS() {
   assert(g.getEdgesAsString("C").empty());
 
   g.dfs("A", vertexPrinter);
-  cout << globalSS.str() << endl;
   assert(globalSS.str() == "ABC" && "starting from A");
 
   globalSS.str("");
@@ -230,21 +229,21 @@ void testGraph1() {
   if (!g.readFile("graph1.txt")) {
     return;
   }
-  // globalSS.str("");
-  // g.dfs("A", vertexPrinter);
-  // assert(globalSS.str() == "ABCDEFGH" && "dfs starting from A");
+  globalSS.str("");
+  g.dfs("A", vertexPrinter);
+  assert(globalSS.str() == "ABCDEFGH" && "dfs starting from A");
 
-  // globalSS.str("");
-  // g.bfs("A", vertexPrinter);
-  // assert(globalSS.str() == "ABHCGDEF" && "bfs starting from A");
+  globalSS.str("");
+  g.bfs("A", vertexPrinter);
+  assert(globalSS.str() == "ABHCGDEF" && "bfs starting from A");
 
-  // globalSS.str("");
-  // g.dfs("B", vertexPrinter);
-  // assert(globalSS.str() == "BCDEFG" && "dfs starting from B");
+  globalSS.str("");
+  g.dfs("B", vertexPrinter);
+  assert(globalSS.str() == "BCDEFG" && "dfs starting from B");
 
-  // globalSS.str("");
-  // g.bfs("B", vertexPrinter);
-  // assert(globalSS.str() == "BCDEFG" && "bfs starting from B");
+  globalSS.str("");
+  g.bfs("B", vertexPrinter);
+  assert(globalSS.str() == "BCDEFG" && "bfs starting from B");
 
   map<string, int> weights;
   map<string, string> previous;
@@ -259,11 +258,11 @@ void testGraph1() {
 
 void testAll() {
   testGraphBasic();
-  // testGraph0DFS();
-  // testGraph0BFS();
-  // testGraph0Dijkstra();
+  testGraph0DFS();
+  testGraph0BFS();
+  testGraph0Dijkstra();
   testGraph0NotDirected();
-  // testGraph1();
+  testGraph1();
 }
 
 int main(){
