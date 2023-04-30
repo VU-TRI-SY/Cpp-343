@@ -116,6 +116,25 @@ public:
     int w;
   };
 
+  
+  string root(string v, map<string, string>& parent) const{
+    if(parent[v] == "Null") return v;
+    return parent[v] = root(parent[v], parent);
+  }
+
+  void merge(string u, string v, map<string, int>& ranked, map<string, string>& parent) const{
+    if(ranked[u] == ranked[v]){
+        parent[u] = v;
+        ranked[v] += 1;
+    }else{
+        if(ranked[u] > ranked[v]){
+            parent[v] = u;
+        }else parent[u] = v;
+    }
+  }
+
+
+
 };
 
 #endif // GRAPH_H

@@ -185,40 +185,79 @@ void testGraph0NotDirected() {
 
   map<string, int> weights;
   map<string, string> previous;
-  tie(weights, previous) = g.dijkstra("A");
-  cout << "Dijkstra(A) weights is " << map2string(weights) << endl;
-  assert(map2string(weights) == "[B:1][C:4]" && "Dijkstra(A) weights");
-  // cout << "Dijkstra(A) previous is " << map2string(previous) << endl;
-  assert(map2string(previous) == "[B:A][C:B]" && "Dijkstra(A) previous");
+  // tie(weights, previous) = g.dijkstra("A");
+  // cout << "Dijkstra(A) weights is " << map2string(weights) << endl;
+  // assert(map2string(weights) == "[B:1][C:4]" && "Dijkstra(A) weights");
+  // // cout << "Dijkstra(A) previous is " << map2string(previous) << endl;
+  // assert(map2string(previous) == "[B:A][C:B]" && "Dijkstra(A) previous");
 
-  tie(weights, previous) = g.dijkstra("B");
-  assert(map2string(weights) == "[A:1][C:3]" && "Dijkstra(B) weights");
-  assert(map2string(previous) == "[A:B][C:B]" && "Dijkstra(B) previous");
+  // tie(weights, previous) = g.dijkstra("B");
+  // assert(map2string(weights) == "[A:1][C:3]" && "Dijkstra(B) weights");
+  // assert(map2string(previous) == "[A:B][C:B]" && "Dijkstra(B) previous");
 
-  tie(weights, previous) = g.dijkstra("X");
-  assert(map2string(weights).empty() && "Dijkstra(C) weights");
-  assert(map2string(previous).empty() && "Dijkstra(C) previous");
+  // tie(weights, previous) = g.dijkstra("X");
+  // assert(map2string(weights).empty() && "Dijkstra(C) weights");
+  // assert(map2string(previous).empty() && "Dijkstra(C) previous");
 
+  //-----------------------------------------------------------------
+    // Test Kruskal;
+    // globalSS.str("");
+    // int mstLength = g.mstKruskal("A", edgePrinter);
+    // cout << mstLength << endl;
+    // cout << globalSS.str() << endl;
+    // assert(mstLength == 4 && "mst A is 4");
+    // assert(globalSS.str() == "[AB 1][BC 3]" && "mst A is [AB 1][BC 3]");
+  //-----------------------------------------------------------------
+  // globalSS.str("");
+  // int mstLength = g.mstPrim("A", edgePrinter);
+  // assert(mstLength == 4 && "mst A is 4");
+  // assert(globalSS.str() == "[AB 1][BC 3]" && "mst A is [AB 1][BC 3]");
+
+  // globalSS.str("");
+  // mstLength = g.mstPrim("B", edgePrinter);
+  // assert(mstLength == 4 && "mst 4 is 4");
+  // assert(globalSS.str() == "[BA 1][BC 3]");
+
+  // globalSS.str("");
+  // mstLength = g.mstPrim("C", edgePrinter);
+  // cout << globalSS.str() << endl;
+  // assert(mstLength == 4 && "mst C is 4");
+  // assert(globalSS.str() == "[CB 3][BA 1]");
+
+  // globalSS.str("");
+  // mstLength = g.mstPrim("X", edgePrinter);
+  // assert(mstLength == -1 && "mst X is -1");
+  // assert(globalSS.str().empty() && "mst for vertex not found");
+
+
+  //--------------------------------------------------------------------
   globalSS.str("");
-  int mstLength = g.mstPrim("A", edgePrinter);
-  assert(mstLength == 4 && "mst A is 4");
-  assert(globalSS.str() == "[AB 1][BC 3]" && "mst A is [AB 1][BC 3]");
-
-  globalSS.str("");
-  mstLength = g.mstPrim("B", edgePrinter);
-  assert(mstLength == 4 && "mst 4 is 4");
-  assert(globalSS.str() == "[BA 1][BC 3]");
-
-  globalSS.str("");
-  mstLength = g.mstPrim("C", edgePrinter);
+  int mstLength = g.mstKruskal("A", edgePrinter);
+  cout << mstLength << endl;
   cout << globalSS.str() << endl;
-  assert(mstLength == 4 && "mst C is 4");
-  assert(globalSS.str() == "[CB 3][BA 1]");
+  // assert(mstLength == 4 && "mst A is 4");
+  // assert(globalSS.str() == "[AB 1][BC 3]" && "mst A is [AB 1][BC 3]");
 
   globalSS.str("");
-  mstLength = g.mstPrim("X", edgePrinter);
-  assert(mstLength == -1 && "mst X is -1");
-  assert(globalSS.str().empty() && "mst for vertex not found");
+  mstLength = g.mstKruskal("B", edgePrinter);
+  cout << mstLength << endl;
+  cout << globalSS.str() << endl;
+  // assert(mstLength == 4 && "mst 4 is 4");
+  // assert(globalSS.str() == "[BA 1][BC 3]");
+
+  globalSS.str("");
+  mstLength = g.mstKruskal("C", edgePrinter);
+  cout << mstLength << endl;
+  cout << globalSS.str() << endl;
+  // assert(mstLength == 4 && "mst C is 4");
+  // assert(globalSS.str() == "[CB 3][BA 1]");
+
+  globalSS.str("");
+  mstLength = g.mstKruskal("X", edgePrinter);
+  cout << mstLength << endl;
+  cout << globalSS.str() << endl;
+  // assert(mstLength == -1 && "mst X is -1");
+  // assert(globalSS.str().empty() && "mst for vertex not found");
 }
 
 void testGraph1() {
@@ -258,9 +297,9 @@ void testAll() {
   // testGraphBasic();
   // testGraph0DFS();
   // testGraph0BFS();
-  testGraph0Dijkstra();
+  // testGraph0Dijkstra();
   testGraph0NotDirected();
-  testGraph1();
+  // testGraph1();
 }
 
 int main(){

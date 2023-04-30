@@ -1,0 +1,54 @@
+void Graph::dfs(const string &vertex, unordered_set<string> &visitedVertexes, void visit(const string &label)) {
+  visit(vertex);
+  visitedVertexes.insert(vertex);
+
+  for (const auto &nextVertex : adjList[vertex]) {
+    auto it = visitedVertexes.find(nextVertex.first);
+    if (it != visitedVertexes.end()) {
+      continue;
+    }
+
+    dfs(nextVertex.first, visitedVertexes, visit);
+  }
+}
+
+// depth-first traversal starting from given startLabel
+void Graph::dfs(const string &startLabel, void visit(const string &label)) {
+  auto it = adjList.find(startLabel);
+  if (it == adjList.end()) {
+    visit("");
+    return;
+  }
+
+  unordered_set<string> visitedVertexes;
+  dfs(startLabel, visitedVertexes, visit);
+}
+
+void Graph::bfs(const string &startLabel, void visit(const string &label)) {
+  auto it = adjList.find(startLabel);
+  if (it == adjList.end()) {
+    visit("");
+    return;
+  }
+
+  queue<string> nodesToVisit;
+  nodesToVisit.push(startLabel);
+  unordered_set<string> visitedVertexes;
+  visitedVertexes.insert(startLabel);
+
+  while (not nodesToVisit.empty()) {
+    string vertex = nodesToVisit.front();
+    visit(vertex);
+    nodesToVisit.pop();
+
+    for (const auto &nextVertex : adjList[vertex]) {
+      auto it = visitedVertexes.find(nextVertex.first);
+      if (it != visitedVertexes.end()) {
+        continue;
+      }
+
+      nodesToVisit.push(nextVertex.first);
+      visitedVertexes.insert(nextVertex.first);
+    }
+  }
+}

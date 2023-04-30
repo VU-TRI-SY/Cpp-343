@@ -10,6 +10,7 @@
 #include <utility>
 #include <vector>
 #include <climits>
+#include <unordered_set>
 
 using namespace std;
 
@@ -320,8 +321,45 @@ int Graph::mstPrim(const string &startLabel, void visit(const string &from, cons
 
 // minimum spanning tree using Prim's algorithm
 int Graph::mstKruskal(const string &startLabel, void visit(const string &from, const string &to, int weight)) const {
+  if(!contains(startLabel)) return -1;
 
-  return -1;
+  int res = 0;
+  map<string, int> ranked;
+  map<string, string> parent;
+  vector<edge> e;
+
+  for(auto it = graph.begin(); it != graph.end(); it++){
+    for(auto& tp: it->second){
+      e.push_back({it->first, tp.first, tp.second});
+    }
+
+    ranked[it->first] = 0;
+    parent[it->first] = "Null";
+  }
+  
+
+  sort(e.begin(), e.end(), [](edge a,edge b){
+    return a.w < b.w;
+  });
+  int i = 0, j = 0;
+  int n = e.size()/2;
+  int m = graph.size();
+  while(i < n-1 && j < m){
+    string u = root(e[j].u, parent);
+    string v = root(e[j].v, parent);
+    if(u == v) {
+      j+=2;
+    }
+    else{
+        merge(u, v, ranked, parent);
+        res += e[j].w;
+        i++;
+        visit(u, v, e[j].w);
+    }
+  }
+  return res;
+
+
 }
 
 // read a text file and create the graph
